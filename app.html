@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visión Computacional: Análisis Financiero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-active {
+            border-bottom: 3px solid #0284c7;
+            color: #0369a1;
+            background-color: #f0f9ff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <img src="./img/eye.svg" alt="Logo" class="h-8 mr-2">
+                    <h1 class="text-xl font-bold tracking-tight">
+                        Impacto Financiero de la <span class="text-sky-600 font-bold">Visión Computacional</span>
+                    </h1>
+                </div>
+                <div class="text-sm font-semibold text-slate-500 hidden sm:block">Diego Rafael Moctezuma Ramirez</div>
+            </div>
+        </div>
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100">
+            <div class="flex space-x-2 overflow-x-auto py-1">
+                <button onclick="switchTab('overview')" id="tab-overview"
+                    class="nav-btn px-4 py-2 rounded-t-lg text-sm font-semibold transition-colors whitespace-nowrap nav-active">Visión
+                    General</button>
+                <button onclick="switchTab('documents')" id="tab-documents"
+                    class="nav-btn px-4 py-2 rounded-t-lg text-sm font-semibold text-slate-600 hover:text-sky-600 transition-colors whitespace-nowrap">Gestión
+                    Documental (IDP)</button>
+                <button onclick="switchTab('inventory')" id="tab-inventory"
+                    class="nav-btn px-4 py-2 rounded-t-lg text-sm font-semibold text-slate-600 hover:text-sky-600 transition-colors whitespace-nowrap">Inventarios</button>
+                <button onclick="switchTab('quality')" id="tab-quality"
+                    class="nav-btn px-4 py-2 rounded-t-lg text-sm font-semibold text-slate-600 hover:text-sky-600 transition-colors whitespace-nowrap">Control
+                    de Calidad</button>
+                <button onclick="switchTab('finance')" id="tab-finance"
+                    class="nav-btn px-4 py-2 rounded-t-lg text-sm font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 transition-colors whitespace-nowrap">📊
+                    Finanzas & Riesgos</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <section id="overview" class="tab-content fade-in">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-slate-800 mb-4">El Ojo Digital de la Empresa Moderna</h2>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    La visión computacional ha trascendido su fase experimental. Hoy es una infraestructura empresarial
+                    que proyecta un crecimiento de <strong>$19.82B (2024) a $58.29B (2030)</strong>.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div
+                    class="glass-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border-l-4 border-sky-500">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">CAGR (2024-2030)</h3>
+                    <p class="text-4xl font-black text-sky-600 mt-2">19.8%</p>
+                    <p class="text-sm text-slate-600 mt-1">Tasa de crecimiento anual compuesto del mercado.</p>
+                </div>
+                <div
+                    class="glass-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border-l-4 border-emerald-500">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Brecha de Adopción</h3>
+                    <p class="text-4xl font-black text-emerald-600 mt-2">1%</p>
+                    <p class="text-sm text-slate-600 mt-1">Empresas con IA plenamente integrada en flujos centrales.</p>
+                </div>
+                <div
+                    class="glass-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border-l-4 border-indigo-500">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Pérdidas Logísticas</h3>
+                    <p class="text-4xl font-black text-indigo-600 mt-2">$1 Trillón</p>
+                    <p class="text-sm text-slate-600 mt-1">Ventas perdidas al año por falta de existencias (OOS).</p>
+                </div>
+            </div>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Impacto y Beneficios por Sector</h3>
+                    <p class="text-slate-600 mb-4">La adopción exige un enfoque de arquitectura escalable que genere
+                        retornos tangibles inmediatos.</p>
+                    <div id="adoption-details" class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">👆 Haz clic en el gráfico de dona para analizar
+                            el sector.</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="adoptionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="documents" class="tab-content hidden-section fade-in">
+            <div class="mb-6 border-b border-slate-200 pb-4">
+                <h2 class="text-3xl font-bold text-slate-800">Procesamiento Inteligente de Documentos (IDP)</h2>
+                <p class="text-slate-600 mt-2">El 80-90% de los datos empresariales residen en formatos no
+                    estructurados. El IDP fusiona OCR con Modelos de Lenguaje para extraer semántica, reduciendo el
+                    error humano en un 52%.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Tiempos de Procesamiento: Humano vs. IDP</h3>
+                    <div class="chart-container">
+                        <canvas id="docSpeedChart"></canvas>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-800 text-white p-8 rounded-2xl shadow-xl border border-slate-700 relative overflow-hidden">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2 relative z-10">Calculadora de Flujo de Caja
+                        Libre</h3>
+                    <p class="text-sm text-slate-300 mb-6 relative z-10">Proyección de ahorro mensual por automatización
+                        de extracción de datos.</p>
+
+                    <div class="space-y-6 relative z-10">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-300 mb-2">Volumen de Documentos /
+                                Mes:</label>
+                            <input type="range" id="docVolume" min="1000" max="100000" step="1000" value="20000"
+                                class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+                            <div class="flex justify-between text-xs text-slate-400 mt-2 font-mono">
+                                <span>1k</span>
+                                <span id="docVolumeVal" class="font-bold text-emerald-400 text-lg">20,000</span>
+                                <span>100k</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-300 mb-2">Costo Promedio Manual ($
+                                USD):</label>
+                            <select id="docCost"
+                                class="w-full p-3 border border-slate-600 bg-slate-700 rounded-lg text-sm text-white focus:ring-2 focus:ring-emerald-500">
+                                <option value="1.0">Ticket Básico ($1.00 USD)</option>
+                                <option value="2.5" selected>Factura Comercial ($2.50 USD)</option>
+                                <option value="5.0">Contrato Complejo ($5.00 USD)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-600 relative z-10">
+                        <div class="grid grid-cols-2 gap-4 text-center mb-4">
+                            <div class="bg-slate-700/50 p-3 rounded-lg">
+                                <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Gasto Manual</p>
+                                <p id="currentCostDisplay" class="text-xl font-mono text-red-400 font-bold">$50,000</p>
+                            </div>
+                            <div class="bg-slate-700/50 p-3 rounded-lg">
+                                <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Gasto IDP (Visión + IA)
+                                </p>
+                                <p id="aiCostDisplay" class="text-xl font-mono text-emerald-400 font-bold">$7,500</p>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-4 rounded-xl text-center shadow-lg">
+                            <p class="text-sm font-semibold uppercase opacity-90">Ahorro Neto Generado</p>
+                            <p id="savingsDisplay" class="text-3xl font-black mt-1">$42,500 <span
+                                    class="text-sm font-normal">/ mes</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-slate-900 rounded-2xl p-8 mb-8 shadow-xl border border-slate-700 w-full overflow-hidden mt-8">
+                <h3 class="text-xl font-bold text-white mb-8">Arquitectura y Flujo de Trabajo IDP</h3>
+
+                <div class="relative flex justify-between items-center mb-8 z-10">
+
+                    <div
+                        class="absolute left-0 top-1/2 w-full h-1 bg-slate-700 -z-10 transform -translate-y-1/2 rounded-full overflow-hidden">
+                        <div id="idp-progress-line"
+                            class="h-full bg-gradient-to-r from-sky-400 to-emerald-400 transition-all duration-500 ease-out w-0">
+                        </div>
+                    </div>
+
+                    <button onmouseover="updateIdpInfo(0)"
+                        class="idp-node group flex flex-col items-center focus:outline-none w-1/6">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 border-2 border-slate-500 flex items-center justify-center text-xl text-slate-400 group-hover:border-sky-400 group-hover:bg-sky-900 group-hover:text-sky-300 transition-all duration-300 shadow-lg">
+                            📥</div>
+                        <span
+                            class="text-[10px] font-semibold text-slate-400 mt-3 text-center uppercase tracking-wider group-hover:text-sky-400 transition-colors">Ingesta</span>
+                    </button>
+
+                    <button onmouseover="updateIdpInfo(1)"
+                        class="idp-node group flex flex-col items-center focus:outline-none w-1/6">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 border-2 border-slate-500 flex items-center justify-center text-xl text-slate-400 group-hover:border-sky-400 group-hover:bg-sky-900 group-hover:text-sky-300 transition-all duration-300 shadow-lg">
+                            ✨</div>
+                        <span
+                            class="text-[10px] font-semibold text-slate-400 mt-3 text-center uppercase tracking-wider group-hover:text-sky-400 transition-colors">Preprocesamiento</span>
+                    </button>
+
+                    <button onmouseover="updateIdpInfo(2)"
+                        class="idp-node group flex flex-col items-center focus:outline-none w-1/6">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 border-2 border-slate-500 flex items-center justify-center text-xl text-slate-400 group-hover:border-sky-400 group-hover:bg-sky-900 group-hover:text-sky-300 transition-all duration-300 shadow-lg">
+                            🗂️</div>
+                        <span
+                            class="text-[10px] font-semibold text-slate-400 mt-3 text-center uppercase tracking-wider group-hover:text-sky-400 transition-colors">Clasificación</span>
+                    </button>
+
+                    <button onmouseover="updateIdpInfo(3)"
+                        class="idp-node group flex flex-col items-center focus:outline-none w-1/6 relative">
+                        <div
+                            class="absolute -top-6 bg-emerald-500 text-white text-[9px] font-bold px-2 py-0.5 rounded shadow-lg animate-pulse">
+                            LLM</div>
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 border-2 border-slate-500 flex items-center justify-center text-xl text-slate-400 group-hover:border-emerald-400 group-hover:bg-emerald-900 group-hover:text-emerald-300 transition-all duration-300 shadow-lg">
+                            🧠</div>
+                        <span
+                            class="text-[10px] font-semibold text-slate-400 mt-3 text-center uppercase tracking-wider group-hover:text-emerald-400 transition-colors">Extracción</span>
+                    </button>
+
+                    <button onmouseover="updateIdpInfo(4)"
+                        class="idp-node group flex flex-col items-center focus:outline-none w-1/6">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 border-2 border-slate-500 flex items-center justify-center text-xl text-slate-400 group-hover:border-sky-400 group-hover:bg-sky-900 group-hover:text-sky-300 transition-all duration-300 shadow-lg">
+                            🧑‍💻</div>
+                        <span
+                            class="text-[10px] font-semibold text-slate-400 mt-3 text-center uppercase tracking-wider group-hover:text-sky-400 transition-colors">Human-in-Loop</span>
+                    </button>
+
+                    <button onmouseover="updateIdpInfo(5)"
+                        class="idp-node group flex flex-col items-center focus:outline-none w-1/6">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 border-2 border-slate-500 flex items-center justify-center text-xl text-slate-400 group-hover:border-sky-400 group-hover:bg-sky-900 group-hover:text-sky-300 transition-all duration-300 shadow-lg">
+                            🚀</div>
+                        <span
+                            class="text-[10px] font-semibold text-slate-400 mt-3 text-center uppercase tracking-wider group-hover:text-sky-400 transition-colors">Salida
+                            (STP)</span>
+                    </button>
+                </div>
+
+                <div
+                    class="bg-slate-800 border border-slate-600 rounded-xl p-6 min-h-[140px] flex flex-col justify-center overflow-hidden">
+                    <div id="idp-info-container"
+                        class="transition-all duration-300 transform translate-y-0 opacity-100">
+                        <h4 id="idp-info-title" class="text-xl font-bold text-sky-400 mb-2">Pase el cursor sobre una
+                            fase</h4>
+                        <p id="idp-info-desc" class="text-sm text-slate-300 leading-relaxed">Explore el ecosistema de
+                            algoritmos multicapa diseñado para transformar datos caóticos en información estructurada
+                            procesable directamente por los sistemas centrales de la empresa (ERP, CRM).</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="inventory" class="tab-content hidden-section fade-in">
+            <div class="mb-6 border-b border-slate-200 pb-4">
+                <h2 class="text-3xl font-bold text-slate-800">Cadenas de Suministro y Monitoreo de Estantes</h2>
+                <p class="text-slate-600 mt-2">Sistemas de cámaras y drones reducen los tiempos de conteo de inventario
+                    en un 75% e incrementan la precisión al 99.9%, eliminando la dependencia de escaneos manuales.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-700">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-white">Mapa de Calor: Visión Computacional en Almacén</h3>
+                        <div class="flex space-x-4 text-xs font-semibold">
+                            <span class="flex items-center text-slate-300"><span
+                                    class="w-3 h-3 bg-sky-500 rounded-full mr-2"></span> Óptimo</span>
+                            <span class="flex items-center text-slate-300"><span
+                                    class="w-3 h-3 bg-amber-400 rounded-full mr-2"></span> Desviación</span>
+                            <span class="flex items-center text-slate-300"><span
+                                    class="w-3 h-3 bg-red-500 rounded-full mr-2"></span> Out-of-Stock</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-8 gap-2 h-72 w-full p-2 bg-slate-800 rounded-xl" id="warehouseGrid">
+                    </div>
+                    <div id="grid-tooltip"
+                        class="mt-4 h-10 text-sm font-mono font-bold text-white text-center rounded-lg flex items-center justify-center border border-dashed border-slate-600">
+                        Pase el cursor sobre las cuadrículas para inspeccionar.
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Eliminación de Quiebres de Stock</h3>
+                    <div class="chart-container flex-grow">
+                        <canvas id="stockTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quality" class="tab-content hidden-section fade-in">
+            <div class="mb-6 border-b border-slate-200 pb-4">
+                <h2 class="text-3xl font-bold text-slate-800">Inspección Visual Automatizada (AVI)</h2>
+                <p class="text-slate-600 mt-2">La IA analiza productos en tiempo real, superando las limitaciones
+                    biológicas. En industrias de precisión (ej. acero), esto genera un ROI auditado superior al 1900%.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Falsos Positivos: Humano vs Edge AI</h3>
+                    <div class="chart-container">
+                        <canvas id="defectChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-2xl relative border border-slate-700">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-xl font-black text-sky-400 uppercase tracking-widest">Inferencia en Producción
+                        </h3>
+                        <span class="bg-sky-500/20 text-sky-400 font-mono text-xs px-2 py-1 rounded">60 FPS</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-600 text-center">
+                            <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Unidades Analizadas</p>
+                            <p id="sim-scanned" class="text-5xl font-mono font-bold text-white">0</p>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-600 text-center">
+                            <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Retrabajo Evitado ($)</p>
+                            <p id="sim-saved" class="text-5xl font-mono font-bold text-emerald-400">$0</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 rounded-full h-3 w-full overflow-hidden mb-6 border border-slate-600">
+                        <div id="sim-bar"
+                            class="bg-gradient-to-r from-sky-500 to-emerald-500 h-full w-0 transition-all duration-75">
+                        </div>
+                    </div>
+
+                    <button onclick="toggleSimulation()" id="sim-btn"
+                        class="w-full bg-sky-600 hover:bg-sky-500 text-white py-3 rounded-lg font-bold uppercase tracking-wider transition-all">
+                        ▶ Iniciar Línea
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="finance" class="tab-content hidden-section fade-in">
+            <div class="mb-6 border-b border-emerald-200 pb-4">
+                <h2 class="text-3xl font-bold text-slate-800">Evaluación Financiera y Riesgos</h2>
+                <p class="text-slate-600 mt-2">La viabilidad a escala requiere equilibrar la inversión en hardware
+                    (CapEx), costos de nube (OpEx) y el estricto apego normativo a la privacidad de datos biométricos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">⚖️ Modelado de Costos</h3>
+                    <div class="space-y-6">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="text-lg font-bold text-indigo-700 mb-2">Infraestructura Edge (Alto CapEx)</h4>
+                            <p class="text-sm text-slate-600">Inversión intensiva en cámaras industriales de alta
+                                velocidad (Global Shutter) y GPUs locales para procesar datos sin latencia.
+                                Indispensable en líneas de producción rápidas.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="text-lg font-bold text-amber-600 mb-2">Sistemas Cloud (Riesgo OpEx)</h4>
+                            <p class="text-sm text-slate-600">Procesar video 24/7 en la nube evita compras de
+                                servidores, pero genera tarifas de ancho de banda y almacenamiento masivo a largo plazo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-700 text-white">
+                    <h3 class="text-2xl font-bold text-red-400 mb-6 flex items-center">🚨 Riesgo Regulatorio
+                        (Privacidad)</h3>
+                    <p class="text-slate-300 mb-6">Instalar cámaras en la empresa captura inevitablemente rostros de los
+                        trabajadores. Ignorar el RGPD/GDPR puede borrar cualquier ganancia generada por el proyecto.</p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-3 text-xl">✗</span>
+                            <div>
+                                <strong class="text-white block">Precedente de Multa:</strong>
+                                <span class="text-sm text-slate-400">Multas documentadas de hasta €220,000 en España por
+                                    el uso desproporcionado de reconocimiento facial biométrico sin el correcto
+                                    consentimiento o evaluación.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-emerald-400 mr-3 text-xl">✓</span>
+                            <div>
+                                <strong class="text-white block">Solución: Privacidad desde el Diseño</strong>
+                                <span class="text-sm text-slate-400">Aplicar difuminado algorítmico (blurring) en tiempo
+                                    real, destruir videos a los 30 días y rastrear movimientos basados en esqueletos en
+                                    lugar de identidades faciales.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm font-bold text-white tracking-widest uppercase mb-1">Diego Rafael Moctezuma Ramirez</p>
+            <p class="text-xs text-slate-500">Clase de Análisis Financiero • FES Acatlán, UNAM</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden-section'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('nav-active', 'bg-emerald-50', 'text-emerald-700');
+                if (el.id === 'tab-finance') {
+                    el.className = "nav-btn px-4 py-2 rounded-t-lg text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors whitespace-nowrap";
+                } else {
+                    el.className = "nav-btn px-4 py-2 rounded-t-lg text-sm font-semibold text-slate-600 hover:text-sky-600 transition-colors whitespace-nowrap";
+                }
+            });
+
+            document.getElementById(tabId).classList.remove('hidden-section');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+
+            if (tabId === 'finance') {
+                activeBtn.classList.add('bg-emerald-50', 'text-emerald-700');
+            } else {
+                activeBtn.classList.add('nav-active');
+            }
+        }
+
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        window.onload = function () {
+            initOverviewCharts();
+            initDocumentCharts();
+            setupRoiCalculator();
+            initInventoryGrid();
+            initInventoryCharts();
+            initQualityCharts();
+        };
+
+        function initOverviewCharts() {
+            new Chart(document.getElementById('adoptionChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Manufactura', 'Logística', 'Retail', 'Salud', 'Finanzas'],
+                    datasets: [{
+                        data: [35, 25, 20, 10, 10],
+                        backgroundColor: ['#0284c7', '#0ea5e9', '#38bdf8', '#7dd3fc', '#bae6fd'],
+                        borderWidth: 2, borderColor: '#ffffff', hoverOffset: 15
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '70%',
+                    plugins: { legend: { position: 'bottom' } },
+                    onClick: (e, els) => {
+                        if (els.length > 0) {
+                            const desc = [
+                                "La detección visual de defectos impulsada por IA ha demostrado retornos masivos. En casos de la industria del acero, la precisión subió al 98%, ahorrando $2 millones anuales con un ROI probado del 1900% en un año.",
+                                "La automatización de auditorías de almacén con cámaras y drones reduce el tiempo de conteo físico y manual en un 42%.",
+                                "Sistemas de visión computacional auditan estantes en tiempo real, reduciendo los incidentes de falta de stock (out-of-stock) entre un 50% y un 70%.",
+                                "En hospitales, se utilizan algoritmos que detectan y difuminan rostros e información protegida en video o documentos al instante, asegurando regulaciones como HIPAA o GDPR.",
+                                "Utiliza el Procesamiento Inteligente de Documentos (IDP) con modelos preentrenados que reconocen el contexto de un archivo para extraer cuentas por pagar, estados bancarios y contratos sin depender de plantillas humanas."
+                            ];
+                            const labels = ['Manufactura', 'Logística', 'Retail', 'Salud', 'Finanzas'];
+                            document.getElementById('adoption-details').innerHTML = `<p class="text-sm font-black text-sky-700">${labels[els[0].index]}</p><p class="text-xs text-slate-600 mt-1">${desc[els[0].index]}</p>`;
+                        }
+                    }
+                }
+            });
+        }
+
+        function initDocumentCharts() {
+            window.docChart = new Chart(document.getElementById('docSpeedChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Extracción', 'Validación', 'Integración ERP'],
+                    datasets: [
+                        { label: 'Humano (minutos)', data: [15, 10, 5], backgroundColor: '#cbd5e1', borderRadius: 4 },
+                        { label: 'Visión Computacional + IA (minutos)', data: [1, 0.5, 0.2], backgroundColor: '#0ea5e9', borderRadius: 4 }
+                    ]
+                },
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        // --- Lógica de la Línea de Tiempo IDP (Animada) ---
+        const idpData = [
+            {
+                title: "1. Ingesta",
+                desc: "Los documentos penetran en el sistema a través de múltiples canales, incluyendo escáneres de red, bandejas de correo electrónico y conexiones API directas.",
+                color: "text-sky-400"
+            },
+            {
+                title: "2. Optimización y Preprocesamiento Visual",
+                desc: "Antes de leer, la visión computacional aplica binarización adaptativa, corrección geométrica de inclinación (deskewing) y eliminación de ruido visual para garantizar la entrada más nítida posible.",
+                color: "text-sky-400"
+            },
+            {
+                title: "3. Clasificación basada en Visión",
+                desc: "Analiza la topología visual completa: identifica logotipos, distribución de párrafos y estructuras de tablas para diferenciar instantáneamente un conocimiento de embarque de una factura o formulario.",
+                color: "text-sky-400"
+            },
+            {
+                title: "4. Extracción Semántica (OCR Profundo + LLMs)",
+                desc: "Sustituye plantillas estáticas por Reconocimiento Inteligente (ICR). La IA generativa comprende el contexto; sabe que 'Total Due' y 'Amount Payable' representan la misma entidad financiera estructurada.",
+                color: "text-emerald-400"
+            },
+            {
+                title: "5. Validación y Aprendizaje Continuo (HITL)",
+                desc: "Si el nivel de confianza de una extracción cae por debajo del umbral, se enruta a un operador humano. Cada corrección manual retroalimenta y reentrena los modelos de aprendizaje automático subyacentes.",
+                color: "text-sky-400"
+            },
+            {
+                title: "6. Integración y Procesamiento Directo (STP)",
+                desc: "Los datos extraídos se validan mediante reglas de negocio predefinidas habilitando un flujo STP sin intervención humana alguna.",
+                color: "text-sky-400"
+            }
+        ];
+
+        let currentHoverIndex = -1;
+
+        function updateIdpInfo(index) {
+            // Evita re-animar si el usuario mantiene el mouse sobre el mismo nodo
+            if (currentHoverIndex === index) return;
+            currentHoverIndex = index;
+
+            // 1. Animar la línea de progreso
+            const progressLine = document.getElementById('idp-progress-line');
+            // Hay 6 nodos (índices 0 al 5). Para llenar la línea equitativamente:
+            // 0 -> 0%, 1 -> 20%, 2 -> 40%, 3 -> 60%, 4 -> 80%, 5 -> 100%
+            // Calcula bloques exactos de ~16.66% (1/6) por cada fase
+            const percentage = ((index + 1) / 6) * 100;
+            progressLine.style.width = percentage + '%';
+
+            // 2. Animar el texto (Fade-out, cambio de texto, Fade-in)
+            const container = document.getElementById('idp-info-container');
+            const titleEl = document.getElementById('idp-info-title');
+            const descEl = document.getElementById('idp-info-desc');
+
+            // Inicia la salida: lo hace transparente y lo mueve un poco hacia abajo
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(10px)';
+
+            // Espera a que termine la animación de salida (150ms) para cambiar el texto
+            setTimeout(() => {
+                // Actualiza los datos
+                titleEl.textContent = idpData[index].title;
+                titleEl.className = `text-xl font-bold mb-2 ${idpData[index].color}`;
+                descEl.innerHTML = idpData[index].desc;
+
+                // Inicia la entrada: lo hace visible y lo devuelve a su lugar
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 150);
+        }
+
+        function setupRoiCalculator() {
+            const vol = document.getElementById('docVolume'), cost = document.getElementById('docCost');
+            function calc() {
+                const manual = vol.value * cost.value;
+                const ai = manual * 0.15; // 85% reduction
+                document.getElementById('docVolumeVal').innerText = Number(vol.value).toLocaleString();
+                document.getElementById('currentCostDisplay').innerText = '$' + manual.toLocaleString();
+                document.getElementById('aiCostDisplay').innerText = '$' + ai.toLocaleString();
+                document.getElementById('savingsDisplay').innerText = '$' + (manual - ai).toLocaleString();
+            }
+            vol.addEventListener('input', calc); cost.addEventListener('change', calc); calc();
+        }
+
+        function initInventoryGrid() {
+            const grid = document.getElementById('warehouseGrid');
+            const states = [2, 2, 2, 2, 2, 1, 2, 0, 2, 2, 2, 2, 2, 2, 1, 2, 0, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+            states.forEach((s, i) => {
+                let div = document.createElement('div');
+                div.className = `${s === 2 ? 'bg-sky-500/80' : s === 1 ? 'bg-amber-400' : 'bg-red-500 shadow-[0_0_8px_#ef4444]'} rounded-sm cursor-pointer transition-transform hover:scale-110 border border-slate-700/50`;
+                div.addEventListener('mouseenter', () => document.getElementById('grid-tooltip').innerHTML = `Sección ${i + 1}: <span class="font-bold ${s === 2 ? 'text-sky-400' : s === 1 ? 'text-amber-400' : 'text-red-400'}">${s === 2 ? 'STOCK AL 95%' : s === 1 ? 'PREDICCIÓN: ALERTA DE REPOSICIÓN' : 'QUIEBRE DE STOCK - PÉRDIDA DE VENTAS'}</span>`);
+                grid.appendChild(div);
+            });
+        }
+
+        function initInventoryCharts() {
+            new Chart(document.getElementById('stockTrendChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6'],
+                    datasets: [
+                        { label: 'Faltantes (Proceso Manual)', data: [15, 14, 16, 15, 17, 16], borderColor: '#94a3b8', borderDash: [5, 5] },
+                        { label: 'Faltantes (Con Visión AI)', data: [14, 10, 6, 4, 2, 1], borderColor: '#0284c7', backgroundColor: 'rgba(2, 132, 199, 0.1)', fill: true, tension: 0.3 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function initQualityCharts() {
+            new Chart(document.getElementById('defectChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Línea A', 'Línea B', 'Línea C'],
+                    datasets: [
+                        { label: 'Inspección Manual', data: [45, 60, 35], backgroundColor: '#cbd5e1' },
+                        { label: 'Edge AI Vision', data: [12, 15, 9], backgroundColor: '#0ea5e9' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        let simInt, run = false;
+        function toggleSimulation() {
+            const btn = document.getElementById('sim-btn');
+            if (run) {
+                clearInterval(simInt); run = false;
+                btn.textContent = "▶ Reanudar Línea";
+                btn.className = "w-full bg-sky-600 hover:bg-sky-500 text-white py-3 rounded-lg font-bold uppercase tracking-wider transition-all";
+            } else {
+                run = true; btn.textContent = "⏸ Pausar Inspección AI";
+                btn.className = "w-full bg-red-600 hover:bg-red-500 text-white py-3 rounded-lg font-bold uppercase tracking-wider transition-all";
+                simInt = setInterval(() => {
+                    let s = parseInt(document.getElementById('sim-scanned').innerText) + Math.floor(Math.random() * 5 + 1);
+                    document.getElementById('sim-scanned').innerText = s;
+                    document.getElementById('sim-bar').style.width = (s % 100) + '%';
+                    if (Math.random() > 0.8) {
+                        let val = parseInt(document.getElementById('sim-saved').innerText.replace(/\D/g, '')) + Math.floor(Math.random() * 80 + 20);
+                        document.getElementById('sim-saved').innerText = '$' + val.toLocaleString();
+                    }
+                }, 100);
+            }
+        }
+    </script>
+</body>
+
+</html>
